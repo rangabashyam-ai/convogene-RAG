@@ -1,4 +1,4 @@
-cup >= 3.13
+cup
 streamlit
 langchain
 langchain-community
