@@ -1,0 +1,13 @@
+streamlit
+langchain
+langchain-community
+langchain-openai
+langchain-cohere
+langchain-pinecone
+rank_bm25
+langchain-chroma
+fake_useragent
+bs4
+chromadb
+langgraph
+langchainhub
