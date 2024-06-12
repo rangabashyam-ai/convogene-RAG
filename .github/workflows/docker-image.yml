@@ -30,7 +30,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: yourusername/streamlit:latest
+        tags: rangabashyam/convogenerag:latest
         build-args: |
           COHERE_API_KEY=${{ secrets.COHERE_API_KEY }}
           OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
