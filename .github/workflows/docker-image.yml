@@ -19,6 +19,20 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
+    - name: Install Python and pip-tools
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install pip-tools
+      run: |
+        pip install --upgrade pip
+        pip install pip-tools
+
+    - name: Compile requirements
+      run: |
+        pip-compile requirements.in --output-file requirements.txt
+
     - name: Log in to DockerHub
       uses: docker/login-action@v2
       with:
