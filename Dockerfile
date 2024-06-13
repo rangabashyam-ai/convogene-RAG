@@ -1,21 +1,25 @@
+# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-ENV LANGCHAIN_TRACING_V2=true
-ENV LANGCHAIN_PROJECT=rag-infobell
-ENV LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
-
+# Set the working directory in the container
 WORKDIR /app
 
-# Update pip first
-RUN python -m pip install --upgrade pip
+# Copy only requirements.txt to leverage Docker cache
+COPY requirements.txt .
 
-# Copy and install dependencies
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . /app
+# Copy the rest of the application
+COPY . .
 
+# Set environment variables
+ENV COHERE_API_KEY=${COHERE_API_KEY}
+ENV OPENAI_API_KEY=${OPENAI_API_KEY}
+ENV PINECONE_API_KEY=${PINECONE_API_KEY}
+
+# Expose the port the app runs on
 EXPOSE 8501
 
+# Command to run the app
 CMD ["streamlit", "run", "app.py"]
