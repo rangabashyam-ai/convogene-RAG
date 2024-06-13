@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_PROJECT=rag-infobell
+      - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+    secrets:
+      - COHERE_API_KEY
+      - OPENAI_API_KEY
+      - PINECONE_API_KEY
+secrets:
+  COHERE_API_KEY:
+    external: true
+  OPENAI_API_KEY:
+    external: true
+  PINECONE_API_KEY:
+    external: true
