@@ -1,6 +1,13 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.10-slim
 
+# Update package list and install required packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+    
 # Set the working directory in the container
 WORKDIR /app
 
@@ -8,7 +15,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Upgrade pip and install dependencies
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN pip3 install -r
 
 # Copy the rest of the application
 COPY . .
@@ -22,4 +29,4 @@ ENV PINECONE_API_KEY=${PINECONE_API_KEY}
 EXPOSE 8501
 
 # Command to run the app
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "side_by_side_app.py"]
